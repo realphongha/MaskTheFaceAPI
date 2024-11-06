@@ -643,15 +643,20 @@ def is_image(path):
         image_extensions = ["png", "PNG", "jpg", "JPG"]
 
         if extensions[1:] in image_extensions:
-            return True 
+            return True
         else:
             print("Please input image file. png / jpg")
-            return False 
-    except: 
-        return False 
+            return False
+    except:
+        return False
 
 
-def get_available_mask_types(config_filename="masks/masks.cfg"):
+def get_available_mask_types(config_filename=None):
+    if config_filename is None:
+        current_file_path = os.path.abspath(__file__)
+        current_dir = os.path.dirname(current_file_path)
+        parent_dir = os.path.dirname(current_dir)
+        config_filename = os.path.join(parent_dir, "masks/masks.cfg")
     parser = ConfigParser()
     parser.optionxform = str
     parser.read(config_filename)
